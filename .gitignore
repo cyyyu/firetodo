@@ -1,0 +1,5 @@
+.firebaserc
+**/node_modules/**
+**/.cache/**
+*.log
+public/**
