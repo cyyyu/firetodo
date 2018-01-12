@@ -9,6 +9,12 @@ import AppStore, { AppStore as AppStoreType } from '../store'
 import List from './List'
 import Input from './Input'
 
+// global styles
+css.global('html, body', {
+  margin: 0,
+  padding: 0
+})
+
 const style_App = css({})
 
 interface AppProps {
