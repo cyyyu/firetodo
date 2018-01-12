@@ -21,18 +21,19 @@ export class AppStore {
   @observable edittingItem: string = ''
   @observable token: string = ''
   @observable checkingLoginStatus: boolean = true
-  userId: string = ''
-  dbRef
+  @observable userId: string = ''
 
   constructor() {
     this.init()
-    this.registerLoginCallback()
-    this.checkLogin().then(() => {
-      this.dbRef = firebase.database().ref('todo/' + this.userId)
-      this.syncData()
-    })
+    this.checkLogin()
   }
 
+  @computed
+  get dbRef() {
+    return firebase.database().ref('todo/' + this.userId)
+  }
+
+  @computed
   get loggedIn() {
     return !!this.userId
   }
@@ -68,34 +69,14 @@ export class AppStore {
   // check login status
   @action
   checkLogin = () => {
-    return new Promise(resolve => {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          console.log('User logged in. ', user.uid)
-          this.userId = user.uid
-        }
-        this.checkingLoginStatus = false
-        resolve()
-      })
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log('User logged in. ', user.uid)
+        this.userId = user.uid
+        this.syncData()
+      }
+      this.checkingLoginStatus = false
     })
-  }
-
-  // register a login callback
-  @action
-  registerLoginCallback = () => {
-    firebase
-      .auth()
-      .getRedirectResult()
-      .then(res => {
-        if (res.user) {
-          console.log('User logged in.', res.user)
-          this.userId = res.user.uid
-        }
-        this.checkingLoginStatus = false
-      })
-      .catch(error => {
-        console.log('Something wrong. ', error)
-      })
   }
 
   @action
@@ -128,11 +109,25 @@ export class AppStore {
       })
   }
 
+  @action
   login = () => {
     const provider = new firebase.auth.GoogleAuthProvider()
-    firebase.auth().signInWithRedirect(provider)
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(res => {
+        if (res.user) {
+          console.log('User logged in.', res.user)
+          this.userId = res.user.uid
+        }
+        this.checkingLoginStatus = false
+      })
+      .catch(error => {
+        console.log('Something wrong. ', error)
+      })
   }
 
+  @action
   logout = () => {
     firebase
       .auth()
