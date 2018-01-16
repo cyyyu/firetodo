@@ -81,7 +81,7 @@ export class AppStore {
 
   @action
   updateEdittingItem = (e: React.FormEvent<any>) => {
-    this.edittingItem = e.target.value
+    this.edittingItem = (e.target as HTMLInputElement).value
   }
 
   @action
