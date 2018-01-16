@@ -36,49 +36,75 @@ const style_List = css({
       background: 'white',
       boxShadow: '0 0 4px gray',
       '&.fade-out': {
-        animation: `${fadeOut} .15s forwards`,
+        animation: `${fadeOut} .15s forwards`
       },
       '&:not(:last-child)': {
         marginBottom: 6
       },
-      '& .item-index': {
+      '& .item-toggle': {
+        display: 'block',
+        width: 20,
+        height: 20,
+        borderRadius: '100%',
         fontSize: 12,
         marginRight: 6,
-        '&:after': {
-          content: '.'
-        }
+        border: '1px solid #5f5f5f'
       },
       '& button.item-remove': {
         marginLeft: 'auto',
         fontSize: 18,
         textShadow: '0 0 4px #a9a9a9'
+      },
+
+      // finished item
+      '&.finished': {
+        '& .item-text': {
+          textDecoration: 'line-through',
+          textDecorationColor: 'black',
+          color: '#ddd'
+        },
+        '& .item-toggle': {
+          borderColor: '#d4d4d4',
+          '&:after': {
+            content: '✔',
+            fontSize: 20,
+            display: 'block',
+            lineHeight: '20px'
+          }
+        }
       }
     }
   }
 })
 
 @observer
-class List extends React.Component<{ store: AppStore }, {
-  animatings: {
-    [id: string]: boolean
+class List extends React.Component<
+  { store: AppStore },
+  {
+    animatings: {
+      [id: string]: boolean
+    }
   }
-}> {
+> {
   state = {
     animatings: {}
   }
 
-  addForAnimatingOut = (id) => () => {
+  addForAnimatingOut = id => () => {
     const { store } = this.props
-    this.setState((state) => {
-      const animatings = { ...state.animatings }
-      animatings[id] = true
-      return { animatings }
-    }, () => {
-      // remove from db by the end of animation
-      setTimeout(() => {
-        store.removeItem(id)
-      }, 200)
-    })
+    this.setState(
+      state => {
+        const animatings = { ...state.animatings }
+        animatings[id] = true
+        return { animatings }
+      },
+      () => {
+        // remove from db by the end of animation
+        setTimeout(() => {
+          store.removeItem(id)
+        }, 200)
+      }
+    )
   }
 
   render() {
@@ -87,9 +113,18 @@ class List extends React.Component<{ store: AppStore }, {
       <div {...style_List}>
         <ul>
           {store.list.map((item, index) => (
-            <li key={item.id} className={classnames({ 'fade-out': !!this.state.animatings[item.id] })}>
-              <span className="item-index">{index + 1}</span>
-              {item.text}
+            <li
+              key={item.id}
+              className={classnames({
+                'fade-out': !!this.state.animatings[item.id],
+                finished: !!item.status
+              })}
+            >
+              <span
+                onClick={() => store.toggleItem(item.id, item.status)}
+                className="item-toggle"
+              />
+              <span className="item-text">{item.text}</span>
               <button
                 className="item-remove"
                 onClick={this.addForAnimatingOut(item.id)}

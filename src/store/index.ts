@@ -112,6 +112,19 @@ export class AppStore {
   }
 
   @action
+  toggleItem = (id: string, previousStatus: 1 | 0) => {
+    this.dbRef
+      .child(id)
+      .update({ status: previousStatus ? 0 : 1 })
+      .then(() => {
+        console.log('Item updated.')
+      })
+      .catch(error => {
+        console.log('Something wrong. ', error)
+      })
+  }
+
+  @action
   login = () => {
     const provider = new firebase.auth.GoogleAuthProvider()
     firebase
