@@ -8,7 +8,7 @@ const style_LoadingAnimation = keyframes('loading', {
   },
   '50%': {
     transform: 'scale(0.5)',
-    background: 'black'
+    opacity: 0.5
   },
   '100%': {
     transform: 'scale(1)',
@@ -25,9 +25,11 @@ const style_Loading = css({
     display: 'inline-block',
     height: 10,
     width: 10,
-    border: '1px solid black',
+    border: '1px solid white',
     animation: `${style_LoadingAnimation} 1s infinite`,
     margin: '0 4px',
+    borderRadius: '100%',
+    background: 'white',
     '&:nth-child(1n)': {
       animationDelay: '0.1s'
     },
