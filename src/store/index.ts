@@ -93,6 +93,8 @@ export class AppStore {
         status: 0
       })
       .then(res => {
+        // clear input
+        this.edittingItem = ''
         console.log('Added an item to db.')
       })
   }
