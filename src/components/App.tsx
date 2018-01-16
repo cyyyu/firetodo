@@ -14,7 +14,13 @@ import Title from './Title'
 css.global('html, body', {
   margin: 0,
   padding: 0,
-  background: 'rgb(84, 89, 106)'
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgb(84, 89, 106)',
+  backgroundImage: 'url(https://picsum.photos/600/800/?random&blur)',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  overflow: 'auto'
 })
 
 css.global('*', {
@@ -44,8 +50,8 @@ const App = observer(props => {
   return (
     <div {...style_App}>
       <Title store={store} />
-      <List store={store} />
       <Input store={store} />
+      <List store={store} />
     </div>
   )
 })

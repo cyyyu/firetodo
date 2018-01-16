@@ -19,22 +19,32 @@ const style_List = css({
   margin: '16px auto',
   width: '85%',
   maxWidth: 350,
-  height: 'calc(100vh - 180px)',
-  overflow: 'auto',
-  borderRadius: 4,
-  padding: '6px 12px',
+  padding: '6px 4px',
+  '& h3': {
+    color: '#ddd',
+    fontSize: 14,
+    textShadow: '0 0 4px #222',
+    textIndent: '8px'
+  },
   '& ul': {
     display: 'block',
     padding: 0,
     margin: 0,
+    height: 'calc(100vh - 220px)',
+    overflow: 'auto',
+    borderRadius: 4,
+    padding: '0 8px',
     '& li': {
       display: 'flex',
       alignItems: 'center',
       listStyle: 'none',
-      padding: '10px 12px',
+      padding: '14px 12px',
       borderRadius: 4,
       background: 'white',
       boxShadow: '0 0 4px gray',
+      '& *': {
+        transition: 'all .2s'
+      },
       '&.fade-out': {
         animation: `${fadeOut} .15s forwards`
       },
@@ -48,9 +58,15 @@ const style_List = css({
         borderRadius: '100%',
         fontSize: 12,
         marginRight: 6,
-        border: '1px solid #5f5f5f'
+        border: '1px solid #ccc',
+        '&:after': {
+          content: '✔',
+          fontSize: 20,
+          lineHeight: '20px',
+          opacity: 0
+        }
       },
-      '& button.item-remove': {
+      '& .item-remove': {
         marginLeft: 'auto',
         fontSize: 14,
         color: '#8e8e8e'
@@ -66,10 +82,7 @@ const style_List = css({
         '& .item-toggle': {
           borderColor: '#d4d4d4',
           '&:after': {
-            content: '✔',
-            fontSize: 20,
-            display: 'block',
-            lineHeight: '20px'
+            opacity: 1
           }
         }
       }
@@ -111,6 +124,7 @@ class List extends React.Component<
     const { store } = this.props
     return (
       <div {...style_List}>
+        <h3>All</h3>
         <ul>
           {store.list.map((item, index) => (
             <li
@@ -125,12 +139,12 @@ class List extends React.Component<
                 className="item-toggle"
               />
               <span className="item-text">{item.text}</span>
-              <button
+              <a
                 className="item-remove"
                 onClick={this.addForAnimatingOut(item.id)}
               >
                 ☓
-              </button>
+              </a>
             </li>
           ))}
         </ul>

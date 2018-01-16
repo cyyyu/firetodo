@@ -5,7 +5,8 @@ const style_Title = css({
   '& h1': {
     fontSize: 24,
     color: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
+    textShadow: '0 0 4px #222'
   }
 })
 

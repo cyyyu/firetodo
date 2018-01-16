@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { css, style } from 'glamor'
 
 const style_Input = css({
-  margin: '16px auto',
+  margin: '0 auto',
   width: '85%',
   maxWidth: 350,
   overflow: 'auto',
@@ -12,9 +12,9 @@ const style_Input = css({
   '& input': {
     width: '100%',
     border: 'none',
-    borderRadius: '4px 0 0 4px',
-    padding: '8px 12px',
-    fontSize: 14,
+    borderRadius: 4,
+    padding: '12px 12px',
+    fontSize: 16,
     '&:focus, &:active': {
       outline: 'none'
     }
@@ -22,7 +22,7 @@ const style_Input = css({
   '& button': {
     background: '#222',
     border: 'none',
-    borderRadius: '0 4px 4px 0',
+    borderRadius: 4,
     padding: '8px 14px',
     color: 'white',
     '&:focus, &:active': {
@@ -36,7 +36,7 @@ const Input = observer(props => {
   return (
     <div {...style_Input}>
       <input value={store.edittingItem} onChange={store.updateEdittingItem} />
-      <button onClick={store.addItem}>Add</button>
+      <button onClick={store.addItem}>ADD</button>
     </div>
   )
 })
