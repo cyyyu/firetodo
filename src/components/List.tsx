@@ -52,8 +52,8 @@ const style_List = css({
       },
       '& button.item-remove': {
         marginLeft: 'auto',
-        fontSize: 18,
-        textShadow: '0 0 4px #a9a9a9'
+        fontSize: 14,
+        color: '#8e8e8e'
       },
 
       // finished item
@@ -129,7 +129,7 @@ class List extends React.Component<
                 className="item-remove"
                 onClick={this.addForAnimatingOut(item.id)}
               >
-                &#x2716;
+                ☓
               </button>
             </li>
           ))}
