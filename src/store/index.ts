@@ -98,6 +98,9 @@ export class AppStore {
   @action
   public addItem = () => {
     const text = this.edittingItem
+
+    if (!text) return
+
     this.dbRef
       .push({
         text,
