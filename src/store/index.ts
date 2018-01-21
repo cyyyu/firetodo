@@ -2,13 +2,14 @@ import * as React from 'react'
 import { observable, action, computed } from 'mobx'
 import * as firebase from 'firebase'
 import config from '../config'
+import { Stats } from 'fs'
+
+enum Status {
+  NOTDONE = 0,
+  DONE
+}
 
 declare namespace Todo {
-  enum Status {
-    NOTDONE = 0,
-    DONE
-  }
-
   interface Item {
     id: string
     text: string
@@ -39,13 +40,13 @@ export class AppStore {
   }
 
   // listen and sync data form db
-  syncData = () => {
-    const dbList = this.dbRef.orderByKey()
+  private syncData = () => {
+    const dbRef = this.dbRef.orderByKey()
 
-    dbList.on('value', snap => {
+    dbRef.on('value', snap => {
       if (snap.exists()) {
         const json = snap.toJSON()
-        const list = Object.getOwnPropertyNames(json)
+        const list: Array<Todo.Item> = Object.getOwnPropertyNames(json)
           .reverse()
           .map(key => ({
             id: key,
@@ -61,14 +62,24 @@ export class AppStore {
     })
   }
 
+  @computed
+  get upcomingsList() {
+    return this.list.filter(item => item.status === 0)
+  }
+
+  @computed
+  get finishedList() {
+    return this.list.filter(item => item.status === 1)
+  }
+
   // initialize
-  init() {
+  private init() {
     firebase.initializeApp(config)
   }
 
   // check login status
   @action
-  checkLogin = () => {
+  private checkLogin = () => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log('User logged in. ', user.uid)
@@ -80,12 +91,12 @@ export class AppStore {
   }
 
   @action
-  updateEdittingItem = (e: React.FormEvent<any>) => {
+  public updateEdittingItem = (e: React.FormEvent<any>) => {
     this.edittingItem = (e.target as HTMLInputElement).value
   }
 
   @action
-  addItem = () => {
+  public addItem = () => {
     const text = this.edittingItem
     this.dbRef
       .push({
@@ -100,7 +111,7 @@ export class AppStore {
   }
 
   @action
-  removeItem = (id: string) => {
+  public removeItem = (id: string) => {
     this.dbRef
       .child(id)
       .remove(() => {
@@ -112,10 +123,12 @@ export class AppStore {
   }
 
   @action
-  toggleItem = (id: string, previousStatus: 1 | 0) => {
+  public toggleItem = (id: string, previousStatus: 1 | 0) => {
     this.dbRef
       .child(id)
-      .update({ status: previousStatus ? 0 : 1 })
+      .update({
+        status: previousStatus ? 0 : 1
+      })
       .then(() => {
         console.log('Item updated.')
       })
@@ -125,7 +138,7 @@ export class AppStore {
   }
 
   @action
-  login = () => {
+  public login = () => {
     const provider = new firebase.auth.GoogleAuthProvider()
     firebase
       .auth()
@@ -143,7 +156,7 @@ export class AppStore {
   }
 
   @action
-  logout = () => {
+  public logout = () => {
     firebase
       .auth()
       .signOut()

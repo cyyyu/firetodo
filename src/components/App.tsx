@@ -7,8 +7,7 @@ import Login from './Login'
 import Loading from './Loading'
 import AppStore, { AppStore as AppStoreType } from '../store'
 import List from './List'
-import Input from './Input'
-import Title from './Title'
+import Header from './Header'
 
 // global styles
 css.global('html, body', {
@@ -25,10 +24,13 @@ css.global('html, body', {
 
 css.global('*', {
   boxSizing: 'border-box',
-  fontFamily: "'Roboto', sans-serif"
+  fontFamily: "'Roboto', sans-serif",
+  cursor: 'default'
 })
 
-const style_App = css({})
+const style_App = css({
+  padding: '0 18px'
+})
 
 interface AppProps {
   store: AppStoreType
@@ -49,8 +51,7 @@ const App = observer(props => {
 
   return (
     <div {...style_App}>
-      <Title store={store} />
-      <Input store={store} />
+      <Header store={store} />
       <List store={store} />
     </div>
   )

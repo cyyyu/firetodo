@@ -4,6 +4,8 @@ import { css, keyframes } from 'glamor'
 import { AppStore } from '../store'
 import * as classnames from 'classnames'
 
+const Fragment = React.Fragment
+
 const fadeOut = keyframes('fadeOut', {
   from: {
     transform: 'scale(1)',
@@ -16,32 +18,41 @@ const fadeOut = keyframes('fadeOut', {
 })
 
 const style_List = css({
-  margin: '16px auto',
-  width: '85%',
-  maxWidth: 350,
-  padding: '6px 4px',
-  '& h3': {
-    color: '#ddd',
-    fontSize: 14,
-    textShadow: '0 0 4px #222',
-    textIndent: '8px'
+  margin: '0 auto',
+  maxWidth: 800,
+  padding: '6px 0px',
+  overflow: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
+  '& .tab': {
+    marginBottom: 10,
+    '& span': {
+      display: 'inline-block',
+      margin: '0 1px',
+      color: '#b7b7b7',
+      fontSize: 14,
+      textIndent: '8px',
+      '&.active': {
+        color: 'white'
+      }
+    }
   },
   '& ul': {
     display: 'block',
     padding: 0,
     margin: 0,
-    height: 'calc(100vh - 220px)',
-    overflow: 'auto',
     borderRadius: 4,
-    padding: '0 8px',
+    padding: 0,
+    flexGrow: 1,
+    overflow: 'auto',
     '& li': {
       display: 'flex',
       alignItems: 'center',
       listStyle: 'none',
-      padding: '14px 12px',
+      padding: '16px 12px',
       borderRadius: 4,
       background: 'white',
-      boxShadow: '0 0 4px gray',
+      border: '1px solid #bbb',
       '& *': {
         transition: 'all .2s'
       },
@@ -97,10 +108,12 @@ class List extends React.Component<
     animatings: {
       [id: string]: boolean
     }
+    activeTab: 'all' | 'upcomings' | 'finished'
   }
 > {
   state = {
-    animatings: {}
+    animatings: {},
+    activeTab: 'all'
   }
 
   addForAnimatingOut = id => () => {
@@ -120,34 +133,74 @@ class List extends React.Component<
     )
   }
 
-  render() {
+  renderItem = (item, index) => (
+    <li
+      key={item.id}
+      className={classnames({
+        'fade-out': !!this.state.animatings[item.id],
+        finished: !!item.status
+      })}
+    >
+      <span
+        onClick={() => this.props.store.toggleItem(item.id, item.status)}
+        className="item-toggle"
+      />
+      <span className="item-text">{item.text}</span>
+      <a className="item-remove" onClick={this.addForAnimatingOut(item.id)}>
+        ☓
+      </a>
+    </li>
+  )
+
+  renderTab = () => {
+    const { activeTab } = this.state
+    return (
+      <div className="tab">
+        <span
+          onClick={() => this.setState({ activeTab: 'all' })}
+          className={classnames({ active: activeTab === 'all' })}
+        >
+          All
+        </span>
+        <span>/</span>
+        <span
+          onClick={() => this.setState({ activeTab: 'upcomings' })}
+          className={classnames({ active: activeTab === 'upcomings' })}
+        >
+          Upcomings
+        </span>
+        <span>/</span>
+        <span
+          onClick={() => this.setState({ activeTab: 'finished' })}
+          className={classnames({ active: activeTab === 'finished' })}
+        >
+          Finished
+        </span>
+      </div>
+    )
+  }
+
+  renderList = () => {
     const { store } = this.props
+    const { activeTab } = this.state
+    switch (activeTab) {
+      case 'all': {
+        return <ul>{store.list.map(this.renderItem)}</ul>
+      }
+      case 'upcomings': {
+        return <ul>{store.upcomingsList.map(this.renderItem)}</ul>
+      }
+      case 'finished': {
+        return <ul>{store.finishedList.map(this.renderItem)}</ul>
+      }
+    }
+  }
+
+  render() {
     return (
       <div {...style_List}>
-        <h3>All</h3>
-        <ul>
-          {store.list.map((item, index) => (
-            <li
-              key={item.id}
-              className={classnames({
-                'fade-out': !!this.state.animatings[item.id],
-                finished: !!item.status
-              })}
-            >
-              <span
-                onClick={() => store.toggleItem(item.id, item.status)}
-                className="item-toggle"
-              />
-              <span className="item-text">{item.text}</span>
-              <a
-                className="item-remove"
-                onClick={this.addForAnimatingOut(item.id)}
-              >
-                ☓
-              </a>
-            </li>
-          ))}
-        </ul>
+        {this.renderTab()}
+        {this.renderList()}
       </div>
     )
   }

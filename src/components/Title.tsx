@@ -1,18 +1,35 @@
 import * as React from 'react'
 import { css } from 'glamor'
+import { Github, LogOut } from 'react-feather'
 
 const style_Title = css({
   '& h1': {
     fontSize: 24,
-    color: 'white',
-    textAlign: 'center',
-    textShadow: '0 0 4px #222'
+    color: '#ccc',
+    textShadow: '0 0 4px #222',
+    '& span': {
+      float: 'right'
+    },
+    '& a': {
+      float: 'right',
+      color: '#ccc',
+      margin: 3
+    }
   }
 })
 
 const Title = props => (
   <div {...style_Title}>
-    <h1>Firetodo</h1>
+    <h1>
+      Firetodo
+      <a onClick={props.store.logout}>
+        <LogOut />
+      </a>
+      <span>∙</span>
+      <a href="https://github.com/cyyyu/firetodo" target="_blank">
+        <Github />
+      </a>
+    </h1>
   </div>
 )
 

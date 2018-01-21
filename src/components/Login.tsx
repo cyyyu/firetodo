@@ -1,8 +1,36 @@
 import * as React from 'react'
+import { css } from 'glamor'
+import GoogleIcon from './GoogleIcon'
+
+const style_Login = css({
+  margin: '0 auto',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  height: '50px',
+  width: '240px',
+  border: 'none',
+  textAlign: 'center',
+  verticalAlign: 'center',
+  boxShadow: '0 2px 4px 0 rgba(0,0,0,.25)',
+  fontSize: '16px',
+  lineHeight: '48px',
+  display: 'block',
+  borderRadius: '1px',
+  transition: 'background-color .218s, border-color .218s, box-shadow .218s',
+  cursor: 'pointer',
+  background: '#fff',
+  '&:hover': {
+    boxShadow: '0 0 3px 3px rgba(66,133,244,.3)',
+    transition: 'background-color .218s, border-color .218s, box-shadow .218s'
+  }
+})
 
 const Login = props => (
-  <div>
-    <button onClick={props.store.login}>Sign in with Google</button>
+  <div {...style_Login} onClick={props.store.login}>
+    {GoogleIcon}
+    <span>Sign In With Google</span>
   </div>
 )
 
