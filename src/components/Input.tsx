@@ -28,6 +28,7 @@ class Input extends React.Component<{ store: AppStore }> {
     const { store } = this.props
     if (e.key === 'Enter') {
       store.addItem()
+      this.input.blur()
     }
   }
 
@@ -36,6 +37,7 @@ class Input extends React.Component<{ store: AppStore }> {
     return (
       <div {...style_Input}>
         <input
+          ref={input => (this.input = input)}
           value={store.edittingItem}
           onKeyPress={this.handleKeyPress}
           onChange={store.updateEdittingItem}
