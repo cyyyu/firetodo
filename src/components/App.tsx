@@ -16,9 +16,6 @@ css.global('html, body', {
   width: '100%',
   height: '100%',
   backgroundColor: 'rgb(84, 89, 106)',
-  backgroundImage: 'url(https://picsum.photos/600/800/?random&blur)',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
   overflow: 'auto'
 })
 
