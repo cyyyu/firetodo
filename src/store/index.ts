@@ -101,14 +101,15 @@ export class AppStore {
 
     if (!text) return
 
+    // clear input even before item added to db
+    this.edittingItem = ''
+
     this.dbRef
       .push({
         text,
         status: 0
       })
       .then(res => {
-        // clear input
-        this.edittingItem = ''
         console.log('Added an item to db.')
       })
   }
