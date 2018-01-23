@@ -77,8 +77,13 @@ const style_List = css({
           opacity: 0
         }
       },
+      '& .item-text': {
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        flexGrow: 1
+      },
       '& .item-remove': {
-        marginLeft: 'auto',
+        marginLeft: 6,
         fontSize: 14,
         color: '#8e8e8e'
       },
