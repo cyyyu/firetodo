@@ -19,15 +19,16 @@ Firebase based todo app example. Try the demo [here](https://react-firetodo.fire
 ### Prerequisites
 
 * Own a firebase account or google cloud account.
-* Create a project enable firebase auth(Sign in with Google) on firebase console.
+* Create a project and enable firebase auth(Sign in with Google) on firebase console.
 * Install firebase-cli by `npm i -g firebase-tools`
 
 ### Then
 
-Clone project
+Clone project and install requirements
 
 ```
-git clone git@github.com:cyyyu/firetodo.git
+$ git clone git@github.com:cyyyu/firetodo.git
+$ npm install
 ```
 
 Replace `src/config/index.ts` with your firebase configs(Get from your firebase console dashboard)
