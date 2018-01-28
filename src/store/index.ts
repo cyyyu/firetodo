@@ -2,7 +2,6 @@ import * as React from 'react'
 import { observable, action, computed } from 'mobx'
 import * as firebase from 'firebase'
 import config from '../config'
-import { Stats } from 'fs'
 
 enum Status {
   NOTDONE = 0,
