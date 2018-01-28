@@ -8,16 +8,14 @@ enum Status {
   DONE
 }
 
-declare namespace Todo {
-  interface Item {
-    id: string
-    text: string
-    status: Status
-  }
+interface TodoItem {
+  id: string
+  text: string
+  status: Status
 }
 
 export class AppStore {
-  @observable list: Todo.Item[] = []
+  @observable list: TodoItem[] = []
   @observable edittingItem: string = ''
   @observable token: string = ''
   @observable checkingLoginStatus: boolean = true
@@ -45,7 +43,7 @@ export class AppStore {
     dbRef.on('value', snap => {
       if (snap.exists()) {
         const json = snap.toJSON()
-        const list: Array<Todo.Item> = Object.getOwnPropertyNames(json)
+        const list: Array<TodoItem> = Object.getOwnPropertyNames(json)
           .reverse()
           .map(key => ({
             id: key,
