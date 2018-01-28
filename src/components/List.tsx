@@ -42,7 +42,6 @@ const style_List = css({
     padding: 0,
     margin: 0,
     borderRadius: 4,
-    padding: 0,
     flexGrow: 1,
     overflow: 'auto',
     '& li': {
