@@ -105,6 +105,12 @@ const style_List = css({
   }
 })
 
+enum ActiveTab {
+  all = 'all',
+  upcomings = 'upcomings',
+  finished = 'finished'
+}
+
 @observer
 class List extends React.Component<
   { store: AppStore },
@@ -112,12 +118,12 @@ class List extends React.Component<
     animatings: {
       [id: string]: boolean
     }
-    activeTab: 'all' | 'upcomings' | 'finished'
+    activeTab: ActiveTab
   }
 > {
   state = {
     animatings: {},
-    activeTab: 'all'
+    activeTab: ActiveTab.all
   }
 
   addForAnimatingOut = id => () => {
@@ -161,22 +167,22 @@ class List extends React.Component<
     return (
       <div className="tab">
         <span
-          onClick={() => this.setState({ activeTab: 'all' })}
-          className={classnames({ active: activeTab === 'all' })}
+          onClick={() => this.setState({ activeTab: ActiveTab.all })}
+          className={classnames({ active: activeTab === ActiveTab.all })}
         >
           All
         </span>
         <span>/</span>
         <span
-          onClick={() => this.setState({ activeTab: 'upcomings' })}
-          className={classnames({ active: activeTab === 'upcomings' })}
+          onClick={() => this.setState({ activeTab: ActiveTab.upcomings })}
+          className={classnames({ active: activeTab === ActiveTab.upcomings })}
         >
           Upcomings
         </span>
         <span>/</span>
         <span
-          onClick={() => this.setState({ activeTab: 'finished' })}
-          className={classnames({ active: activeTab === 'finished' })}
+          onClick={() => this.setState({ activeTab: ActiveTab.finished })}
+          className={classnames({ active: activeTab === ActiveTab.finished })}
         >
           Finished
         </span>
