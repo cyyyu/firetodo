@@ -15,10 +15,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cyyyu/firebase-todo"
+    "url": "https://github.com/cyyyu/firetodo"
   },
   "bugs": {
-    "url": "https://github.com/cyyyu/firebase-todo/issues"
+    "url": "https://github.com/cyyyu/firetodo/issues"
   },
   "dependencies": {
     "@types/classnames": "^2.2.3",
