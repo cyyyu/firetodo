@@ -24,7 +24,9 @@ const style_Input = css({
 
 @observer
 class Input extends React.Component<{ store: AppStore }> {
-  handleKeyPress = (e: React.FormEvent<any>) => {
+  input: HTMLInputElement
+
+  handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { store } = this.props
     if (e.key === 'Enter') {
       store.addItem()
