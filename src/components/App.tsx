@@ -13,10 +13,7 @@ import Header from './Header'
 css.global('html, body', {
   margin: 0,
   padding: 0,
-  width: '100%',
-  height: '100%',
-  backgroundColor: 'rgb(84, 89, 106)',
-  overflow: 'auto'
+  backgroundColor: 'rgb(84, 89, 106)'
 })
 
 css.global('*', {

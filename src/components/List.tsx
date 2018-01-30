@@ -43,7 +43,6 @@ const style_List = css({
     margin: 0,
     borderRadius: 4,
     flexGrow: 1,
-    overflow: 'auto',
     '& li': {
       display: 'flex',
       alignItems: 'center',
