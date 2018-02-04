@@ -143,7 +143,7 @@ export class AppStore {
     const provider = new firebase.auth.GoogleAuthProvider()
     firebase
       .auth()
-      .signInWithPopup(provider)
+      .signInWithRedirect(provider)
       .then(res => {
         if (res.user) {
           console.log('User logged in.', res.user)
