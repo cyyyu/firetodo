@@ -5,5 +5,10 @@
   "lang": "en-GB",
   "start_url": "/index.html",
   "display": "standalone",
-  "theme_color": "rgb(84, 89, 106)"
+  "theme_color": "rgb(84, 89, 106)",
+  "icons": [
+    {
+      "src": "asset/logo.png"
+    }
+  ]
 }
