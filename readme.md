@@ -4,6 +4,7 @@ Firebase based todo app example. Try the demo [here](https://react-firetodo.fire
 
 ## Features
 
+* A real Progressive Web App
 * Sign in with Google account
 * Realtime sync data between multiple devices
 * Serverless (frontend codes only)
@@ -12,7 +13,7 @@ Firebase based todo app example. Try the demo [here](https://react-firetodo.fire
 
 ## Screenshots
 
-<img src="./imgs/web.png" alt="screenshot" width="500" />
+<img src="./imgs/mobile.png" alt="screenshot" width="360" />
 
 ## Build your own app
 
