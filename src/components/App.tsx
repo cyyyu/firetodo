@@ -3,11 +3,15 @@ import { render } from 'react-dom'
 import { css } from 'glamor'
 import { observer } from 'mobx-react'
 
+// components
 import Login from './Login'
 import Loading from './Loading'
 import AppStore, { AppStore as AppStoreType } from '../store'
 import List from './List'
 import Header from './Header'
+
+// helpers
+import registerServiceWorker from '../register-service-worker'
 
 // global styles
 css.global('html, body', {
@@ -52,3 +56,4 @@ const App = observer(props => {
 })
 
 render(<App store={AppStore} />, document.querySelector('#app'))
+registerServiceWorker()
