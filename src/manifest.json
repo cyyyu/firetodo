@@ -1,0 +1,9 @@
+{
+  "name": "Firetodo",
+  "short_name": "Firetodo",
+  "description": "Firebase based todo app.",
+  "lang": "en-GB",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "theme_color": "rgb(84, 89, 106)"
+}
