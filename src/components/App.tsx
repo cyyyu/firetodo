@@ -23,7 +23,8 @@ css.global('html, body', {
 css.global('*', {
   boxSizing: 'border-box',
   fontFamily: "'Roboto', sans-serif",
-  cursor: 'default'
+  cursor: 'default',
+  userSelect: 'none'
 })
 
 const style_App = css({
