@@ -17,7 +17,9 @@ import registerServiceWorker from '../register-service-worker'
 css.global('html, body', {
   margin: 0,
   padding: 0,
-  backgroundColor: 'rgb(84, 89, 106)'
+  backgroundColor: 'rgb(84, 89, 106)',
+  // Disables pull-to-refresh and overscroll glow effect.
+  overscrollBehaviorY: 'none'
 })
 
 css.global('*', {
