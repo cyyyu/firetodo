@@ -26,7 +26,6 @@ css.global('*', {
   boxSizing: 'border-box',
   fontFamily: "'Roboto', sans-serif",
   cursor: 'default',
-  userSelect: 'none'
 })
 
 const style_App = css({

@@ -32,6 +32,7 @@ const style_List = css({
       color: '#b7b7b7',
       fontSize: 14,
       textIndent: '8px',
+      userSelect: 'none',
       '&.active': {
         color: 'white'
       }
@@ -51,6 +52,7 @@ const style_List = css({
       borderRadius: 4,
       background: 'white',
       border: '1px solid #bbb',
+      userSelect: 'none',
       '& *': {
         transition: 'all .2s'
       },
