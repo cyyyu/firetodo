@@ -29,12 +29,12 @@ const style_List = css({
     '& span': {
       display: 'inline-block',
       margin: '0 1px',
-      color: '#b7b7b7',
+      color: '#7BCECC',
       fontSize: 14,
       textIndent: '8px',
       userSelect: 'none',
       '&.active': {
-        color: 'white'
+        color: '#3090A1'
       }
     }
   },
@@ -50,9 +50,9 @@ const style_List = css({
       listStyle: 'none',
       padding: '16px 12px',
       borderRadius: 4,
-      background: 'white',
-      border: '1px solid #bbb',
+      background: 'linear-gradient(white 90%, #ddd)',
       userSelect: 'none',
+      color: '#BC5148',
       '& *': {
         transition: 'all .2s'
       },
@@ -85,14 +85,19 @@ const style_List = css({
       '& .item-remove': {
         marginLeft: 6,
         fontSize: 14,
-        color: '#8e8e8e'
+        color: '#8e8e8e',
+        border: 'none',
+        backgroundColor: 'transparent',
+        '&:hover, &:active, &:focus': {
+          color: '#BC5148',
+          outline: 'none'
+        }
       },
-
       // finished item
       '&.finished': {
         '& .item-text': {
           textDecoration: 'line-through',
-          textDecorationColor: 'black',
+          textDecorationColor: '#BC5148',
           color: '#ddd'
         },
         '& .item-toggle': {
@@ -157,9 +162,12 @@ class List extends React.Component<
         className="item-toggle"
       />
       <span className="item-text">{item.text}</span>
-      <a className="item-remove" onClick={this.addForAnimatingOut(item.id)}>
+      <button
+        className="item-remove"
+        onClick={this.addForAnimatingOut(item.id)}
+      >
         ☓
-      </a>
+      </button>
     </li>
   )
 

@@ -4,7 +4,7 @@ import { css, keyframes } from 'glamor'
 const style_LoadingAnimation = keyframes('loading', {
   '0%': {
     transform: 'scale(1)',
-    background: 'white'
+    background: '#BC5148'
   },
   '50%': {
     transform: 'scale(0.5)',
@@ -12,7 +12,7 @@ const style_LoadingAnimation = keyframes('loading', {
   },
   '100%': {
     transform: 'scale(1)',
-    background: 'white'
+    background: '#BC5148'
   }
 })
 
@@ -25,11 +25,11 @@ const style_Loading = css({
     display: 'inline-block',
     height: 10,
     width: 10,
-    border: '1px solid white',
+    border: '1px solid #BC5148',
     animation: `${style_LoadingAnimation} 1s infinite`,
     margin: '0 4px',
     borderRadius: '100%',
-    background: 'white',
+    background: '#BC5148',
     '&:nth-child(1n)': {
       animationDelay: '0.1s'
     },

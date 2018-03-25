@@ -5,15 +5,13 @@ import { Github, LogOut } from 'react-feather'
 const style_Title = css({
   '& h1': {
     fontSize: 24,
-    color: '#fff',
-    textShadow: '0 0 4px #222',
+    color: '#7BCECC',
     '& span': {
-      float: 'right',
-      textShadow: 'none'
+      float: 'right'
     },
     '& a': {
       float: 'right',
-      color: '#fff',
+      color: '#7BCECC',
       margin: 3
     }
   }
