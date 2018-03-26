@@ -1,6 +1,6 @@
 # Firetodo 
 
-Firebase based todo app example. Try the demo [here](https://react-firetodo.firebaseapp.com/).
+Firebase based todo app example. Try the demo [here](https://fire-todoapp.firebaseapp.com/).
 
 ## Features
 
