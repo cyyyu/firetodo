@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { css } from 'glamor'
+import { inject } from 'mobx-react'
 import GoogleIcon from './GoogleIcon'
 
 const style_Login = css({
@@ -27,10 +28,10 @@ const style_Login = css({
 })
 
 const Login = props => (
-  <div {...style_Login} onClick={props.store.login}>
+  <div {...style_Login} onClick={props.appStore.login}>
     {GoogleIcon}
     <span>Sign In With Google</span>
   </div>
 )
 
-export default Login
+export default inject('appStore')(Login)

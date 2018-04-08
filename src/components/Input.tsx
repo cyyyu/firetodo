@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { css, style } from 'glamor'
 import { AppStore } from '../store'
 
@@ -22,27 +22,28 @@ const style_Input = css({
   }
 })
 
+@inject('appStore')
 @observer
-class Input extends React.Component<{ store: AppStore }> {
+class Input extends React.Component<{ appStore?: AppStore }> {
   input: HTMLInputElement
 
   handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const { store } = this.props
+    const { appStore } = this.props
     if (e.key === 'Enter') {
-      store.addItem()
+      appStore.addItem()
       this.input.blur()
     }
   }
 
   render() {
-    const { store } = this.props
+    const { appStore } = this.props
     return (
       <div {...style_Input}>
         <input
           ref={input => (this.input = input)}
-          value={store.edittingItem}
+          value={appStore.edittingItem}
           onKeyPress={this.handleKeyPress}
-          onChange={store.updateEdittingItem}
+          onChange={appStore.updateEdittingItem}
         />
       </div>
     )

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { css } from 'glamor'
 import { Github, LogOut } from 'react-feather'
+import { inject } from 'mobx-react'
 
 const style_Title = css({
   '& h1': {
@@ -21,7 +22,7 @@ const Title = props => (
   <div {...style_Title}>
     <h1>
       Firetodo
-      <a onClick={props.store.logout}>
+      <a onClick={props.appStore.logout}>
         <LogOut />
       </a>
       <span>∙</span>
@@ -32,4 +33,4 @@ const Title = props => (
   </div>
 )
 
-export default Title
+export default inject('appStore')(Title)

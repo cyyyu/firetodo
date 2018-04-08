@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { css, keyframes } from 'glamor'
 import { AppStore } from '../store'
 import * as classnames from 'classnames'
@@ -117,9 +117,10 @@ enum ActiveTab {
   finished = 'finished'
 }
 
+@inject('appStore')
 @observer
 class List extends React.Component<
-  { store: AppStore },
+  { appStore?: AppStore },
   {
     animatings: {
       [id: string]: boolean
@@ -133,7 +134,7 @@ class List extends React.Component<
   }
 
   addForAnimatingOut = id => () => {
-    const { store } = this.props
+    const { appStore } = this.props
     this.setState(
       state => {
         const animatings = { ...state.animatings }
@@ -143,7 +144,7 @@ class List extends React.Component<
       () => {
         // remove from db by the end of animation
         setTimeout(() => {
-          store.removeItem(id)
+          appStore.removeItem(id)
         }, 200)
       }
     )
@@ -158,7 +159,7 @@ class List extends React.Component<
       })}
     >
       <span
-        onClick={() => this.props.store.toggleItem(item.id, item.status)}
+        onClick={() => this.props.appStore.toggleItem(item.id, item.status)}
         className="item-toggle"
       />
       <span className="item-text">{item.text}</span>
@@ -200,17 +201,17 @@ class List extends React.Component<
   }
 
   renderList = () => {
-    const { store } = this.props
+    const { appStore } = this.props
     const { activeTab } = this.state
     switch (activeTab) {
       case 'all': {
-        return <ul>{store.list.map(this.renderItem)}</ul>
+        return <ul>{appStore.list.map(this.renderItem)}</ul>
       }
       case 'upcomings': {
-        return <ul>{store.upcomingsList.map(this.renderItem)}</ul>
+        return <ul>{appStore.upcomingsList.map(this.renderItem)}</ul>
       }
       case 'finished': {
-        return <ul>{store.finishedList.map(this.renderItem)}</ul>
+        return <ul>{appStore.finishedList.map(this.renderItem)}</ul>
       }
     }
   }

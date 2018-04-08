@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 import { css } from 'glamor'
-import { observer } from 'mobx-react'
+import { observer, Provider, inject } from 'mobx-react'
 
 // components
 import Login from './Login'
@@ -25,7 +25,7 @@ css.global('html, body', {
 css.global('*', {
   boxSizing: 'border-box',
   fontFamily: "'Roboto', sans-serif",
-  cursor: 'default',
+  cursor: 'default'
 })
 
 const style_App = css({
@@ -33,29 +33,36 @@ const style_App = css({
 })
 
 interface AppProps {
-  store: AppStoreType
+  appStore: AppStoreType
 }
 
-const App = observer(props => {
-  const { store } = props
+const App = inject('appStore')(
+  observer(props => {
+    const { appStore } = props
 
-  // show loading when checking status
-  if (store.checkingLoginStatus) {
-    return <Loading />
-  }
+    // show loading when checking status
+    if (appStore.checkingLoginStatus) {
+      return <Loading />
+    }
 
-  // show login page
-  if (!store.loggedIn) {
-    return <Login store={store} />
-  }
+    // show login page
+    if (!appStore.loggedIn) {
+      return <Login />
+    }
 
-  return (
-    <div {...style_App}>
-      <Header store={store} />
-      <List store={store} />
-    </div>
-  )
-})
+    return (
+      <div {...style_App}>
+        <Header />
+        <List />
+      </div>
+    )
+  })
+)
 
-render(<App store={AppStore} />, document.querySelector('#app'))
+render(
+  <Provider appStore={AppStore}>
+    <App />
+  </Provider>,
+  document.querySelector('#app')
+)
 registerServiceWorker()

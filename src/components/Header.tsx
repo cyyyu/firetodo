@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { css, style } from 'glamor'
 import Input from './Input'
 import Title from './Title'
@@ -11,13 +11,13 @@ const style_Header = css({
 })
 
 const Header = observer(props => {
-  const { store } = props
+  const { appStore } = props
   return (
     <div {...style_Header}>
-      <Title store={store} />
-      <Input store={store} />
+      <Title />
+      <Input />
     </div>
   )
 })
 
-export default Header
+export default inject('appStore')(Header)
